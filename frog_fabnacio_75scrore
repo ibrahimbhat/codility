@@ -1,0 +1,75 @@
+// Disclaimer: This solution gets 75% score...needs to be improved 
+
+// The Fibonacci sequence is defined using the following recursive formula:
+//     F(0) = 0
+//     F(1) = 1
+//     F(M) = F(M - 1) + F(M - 2) if M >= 2
+// A small frog wants to get to the other side of a river. 
+// The frog is initially located at one bank of the river (position −1) 
+// and wants to get to the other bank (position N). 
+// The frog can jump over any distance F(K), where F(K) is the K-th Fibonacci number. 
+// Luckily, there are many leaves on the river, and the frog can jump between the leaves, 
+// but only in the direction of the bank at position N.
+// The leaves on the river are represented in a zero-indexed array A consisting of N integers. 
+// Consecutive elements of array A represent consecutive positions from 0 to N − 1 on the river. 
+// Array A contains only 0s and/or 1s:
+//         0 represents a position without a leaf;
+//         1 represents a position containing a leaf.
+// The goal is to count the minimum number of jumps in which the frog can get to the other side of the river 
+// (from position −1 to position N). The frog can jump between positions −1 and N (the banks of the river) 
+// and every position containing a leaf.
+// For example, consider array A such that:
+// A = [0,0,1,1,0,1,0,0,0,0]     
+// The frog can make three jumps of length F(5) = 5, F(3) = 2 and F(5) = 5.
+// Write a function:
+//     function solution(A);
+// that, given a zero-indexed array A consisting of N integers, 
+// returns the minimum number of jumps by which the frog can get to the other side of the river. 
+// If the frog cannot reach the other side of the river, the function should return −1.
+
+function fib(n){
+    let result = [];
+    let a, b, c;
+    b = 1; result.push(b);
+    a = 2; result.push(a); 
+    while(a+b <=n){
+        next = a+b;
+        b = a;
+        a = next;
+        result.push(next);
+    } 
+    return result;
+}
+function solution(A){
+
+    let n = A.length + 1;
+    let fibNums = fib(n);
+    let jumpPos = [];
+    let count = 0;
+    
+    jumpPos = A.map((x,i) => (x===1)?i+1:0 )
+               .filter(x => x!==0);
+    jumpPos.push(n);
+
+    let m = jumpPos.length;
+    let step = [];
+    
+    for(let i = 0; i < m; i++ )
+        step[i] = m+1;
+
+    for(let i = 0; i < m; i++ ){
+        if(fibNums.indexOf(jumpPos[i]) > -1) 
+            step[i] = 1;
+        
+        for(let j = i+1; j < m; j++){
+            if(fibNums.indexOf(jumpPos[j]-jumpPos[i]) > -1){ 
+                step[j] = Math.min(step[j], step[i]+1);
+            }
+        }
+    }
+    
+    if (step[m-1] === m+1)
+        return -1;
+    else return step[m-1];
+
+}
