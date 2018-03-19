@@ -1,0 +1,68 @@
+function get_fib_seq_up_to_n(N) {
+
+
+    var fib = []
+    for (var i = 0; i <= 27; i++) {
+        fib[i] = 0
+    }
+    fib[1] = 1
+    for (var i = 2; i <= 27; i++) {
+        fib[i] = fib[i - 1] + fib[i - 2]
+        if (fib[i] > N) {
+            return fib.slice(2, i)
+        } else {
+            last_valid = i
+        }
+    }
+}
+
+function solution(A) {
+
+    A.push(1)
+    n = A.length
+    var fib_set = get_fib_seq_up_to_n(n)
+
+
+    var reachable = new Array(n).fill(-1);
+
+
+    fib_set.forEach(function(jump) {
+        if (A[jump - 1] == 1) {
+            reachable[jump - 1] = 1
+        }
+
+    });
+
+    for (var idx = 0; idx < n; idx++) {
+        if (A[idx] == 0 || reachable[idx] > 0) {
+            continue;
+        }
+
+
+        var min_idx = -1
+        var min_value = 100000
+        for (var m = 0; m < fib_set.length; m++) {
+            previous_idx = idx - fib_set[m]
+            if (previous_idx < 0) {
+                break;
+            }
+            if (reachable[previous_idx] > 0 && min_value > reachable[previous_idx]) {
+                min_value = reachable[previous_idx]
+                            min_idx = previous_idx
+            }
+
+        }
+
+
+
+        if (min_idx != -1) {
+            reachable[idx] = min_value + 1
+        }
+
+        
+    }
+     return reachable[n - 1]
+
+
+
+}
