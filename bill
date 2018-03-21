@@ -51,3 +51,18 @@ Solution(A)
 var end = new Date().getTime();
 var time = end - start;
 console.log('Execution time: ' + time);
+
+
+var time=["00:01:07","01:01:07","00:11:07","00:01:27","00:01:09","00:01:07","00:01:08","00:01:07"]
+var number = "100234090"
+var str="";
+for(var i=0;i<100;i++){
+  var string;
+  if(i<10000){string=time[0]+number}
+  else {string=time[1]+number}
+  string=time.toString()+number.toString()
+  console.log(string)
+  str.concat(string);
+  
+}
+console.log("de")
