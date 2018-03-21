@@ -65,4 +65,18 @@ for(var i=0;i<100;i++){
   str.concat(string);
   
 }
+var time=["00:01:07","01:01:07","00:11:07","00:01:27","00:01:09","00:01:07","00:01:08","00:01:07"]
+var number = "100234090"
+var str="";
+var string="";
+for(var i=100234090;i<100334090;i++){
+  var c=i
+  if(i<10000){string=time[0].toString()+","+c.toString()}
+  else {string=time[1].toString()+c.toString()}
+  
+  
+  str=str+string+'-';
+}
+
+console.log(str)
 console.log("de")
