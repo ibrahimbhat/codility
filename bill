@@ -72,7 +72,7 @@ var string="";
 for(var i=100234090;i<100334090;i++){
   var c=i
   if(i<10000){string=time[0].toString()+","+c.toString()}
-  else {string=time[1].toString()+c.toString()}
+  else {string=time[1].toString()+","+c.toString()}
   
   
   str=str+string+'-';
