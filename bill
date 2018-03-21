@@ -1,0 +1,53 @@
+function Solution(A){
+  if(A==""){
+    console.log("Bill:0");
+    return 0;}
+ A=A.replace(/-/g,'')
+ var myMapSecs = new Map();
+  var myMapCosts = new Map();
+  var totalCost=0;
+A.split('\n').forEach(function(element){
+  var e=element.split(',');
+  var time=e[0].split(':');
+  var cost=0;
+  
+  //console.log(time);
+  if (parseInt(time[1])<5){cost=parseInt(time[2])*3}else{cost=(parseInt(time[1])*150)+(parseInt(time[0])*150*60)}
+  timeInSeconds=((parseInt(time[0])*3600)+(parseInt(time[1])*60)+(parseInt(time[2])))
+  if(myMapSecs.has(parseInt(e[1]))){
+  myMapSecs.set(parseInt(e[1]), timeInSeconds+myMapSecs.get(parseInt(e[1])));
+  myMapCosts.set(parseInt(e[1]), cost+myMapCosts.get(parseInt(e[1])));
+  }else{
+    myMapSecs.set(parseInt(e[1]), timeInSeconds);
+    myMapCosts.set(parseInt(e[1]), cost);
+  }
+  totalCost=totalCost+cost;
+ })
+  
+  var max=0;
+  var number=9999999999;
+ function logMapElements(value, key, map) {
+  max=Math.max(max,value)
+   
+}
+   function logMapElements2(value, key, map) {
+  if(value==max){number=Math.min(number,key)}
+   
+}
+    myMapSecs.forEach(logMapElements);
+    myMapSecs.forEach(logMapElements2);
+   //console.log(max);
+   //console.log(number);
+   //console.log(myMapSecs);
+   //console.log(myMapCosts);
+   //myMapCosts.get(number);
+   totalCost=totalCost-myMapCosts.get(number)
+   console.log("Bill:"+totalCost);
+}
+
+A="00:01:07,400-234-090\n00:05:01,701-080-080\n00:05:00,400-234-090";
+var start = new Date().getTime();
+Solution(A)
+var end = new Date().getTime();
+var time = end - start;
+console.log('Execution time: ' + time);
