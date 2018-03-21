@@ -1,3 +1,5 @@
+370 miliseconds
+
 function Solution(A){
   if(A==""){
     console.log("Bill:0");
